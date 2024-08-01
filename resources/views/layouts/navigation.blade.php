@@ -6,20 +6,29 @@
                 <!-- Logo -->
                 <div class="shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
+                        <x-application-logo class="block h-7 w-auto text-indigo-500 dark:text-teal-500" />
                     </a>
                 </div>
 
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                <div class="hidden sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
-                        {{ __('Dashboard') }}
+                        {{ __('messages.dashboard') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('route.index')" :active="request()->routeIs(['route.index', 'route.create'])">
+                        {{ __('messages.route.routes') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('garage.index')" :active="request()->routeIs('garage.index')">
+                        {{ __('messages.garage.garage') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('driver.index')" :active="request()->routeIs('driver.index')">
+                        {{ __('messages.driver.driver') }}
                     </x-nav-link>
                 </div>
             </div>
 
             <!-- Settings Dropdown -->
-            <div class="hidden sm:flex sm:items-center sm:ms-6">
+            <div class="hidden sm:flex sm:items-center sm:ms-6 mr-0 sm:mr-10 lg:mr-8 xl:mr-0">
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-300 focus:outline-none transition ease-in-out duration-150">
@@ -35,7 +44,7 @@
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('profile.edit')">
-                            {{ __('Profile') }}
+                            {{ __('messages.profile') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
@@ -45,9 +54,13 @@
                             <x-dropdown-link :href="route('logout')"
                                     onclick="event.preventDefault();
                                                 this.closest('form').submit();">
-                                {{ __('Log Out') }}
+                                {{ __('messages.auth.log_out') }}
                             </x-dropdown-link>
                         </form>
+                        <div class="grid gap-1 grid-cols-2 mt-1">
+                            <a href="/locale/en" class="block w-full ml-0.5 px-4 py-2 text-center text-sm leading-5 rounded-md text-gray-700 dark:text-gray-300 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">en</a>
+                            <a href="/locale/es" class="block w-full mr-0.5 px-4 py-2 text-center text-sm leading-5 rounded-md text-gray-700 dark:text-gray-300 bg-gray-100 hover:bg-gray-200 dark:bg-gray-600 dark:hover:bg-gray-800 focus:outline-none focus:bg-gray-100 dark:focus:bg-gray-800 transition duration-150 ease-in-out">es</a>
+                        </div>
                     </x-slot>
                 </x-dropdown>
             </div>
@@ -70,6 +83,15 @@
             <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('route.index')" :active="request()->routeIs(['route.index'])">
+                {{ __('messages.route.route') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('garage.index')" :active="request()->routeIs('garage.index')">
+                {{ __('messages.garage.garage') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('driver.index')" :active="request()->routeIs('driver.index')">
+                {{ __('messages.driver.driver') }}
+            </x-responsive-nav-link>
         </div>
 
         <!-- Responsive Settings Options -->
@@ -81,7 +103,7 @@
 
             <div class="mt-3 space-y-1">
                 <x-responsive-nav-link :href="route('profile.edit')">
-                    {{ __('Profile') }}
+                    {{ __('messages.profile') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->
@@ -91,7 +113,7 @@
                     <x-responsive-nav-link :href="route('logout')"
                             onclick="event.preventDefault();
                                         this.closest('form').submit();">
-                        {{ __('Log Out') }}
+                        {{ __('messages.auth.log_out') }}
                     </x-responsive-nav-link>
                 </form>
             </div>

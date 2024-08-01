@@ -1,0 +1,3 @@
+@props(['disabled' => false, 'value' => false])
+
+<textarea {{ $disabled ? 'disabled' : '' }} {!! $attributes->merge(['class' => 'block w-full mt-1 py-2 px-3.5 dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:focus:border-teal-600 dark:focus:ring-teal-600 border-gray-300/75 focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50 dark:focus:ring-opacity-50 rounded-md shadow-sm']) !!}>{{ $value }}</textarea>
