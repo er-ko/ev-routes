@@ -1,4 +1,9 @@
 <x-guest-layout>
+
+    <x-slot name="meta_title">{{ __('meta.auth.title.forgot_password') }}</x-slot>
+    <x-slot name="meta_desc">{{ __('meta.auth.desc.forgot_password') }}</x-slot>
+    <x-slot name="meta_keywords">{{ __('meta.auth.keywords.forgot_password') }}</x-slot>
+
     <div class="mb-4 text-sm text-gray-600 dark:text-gray-400">
         {{ __('messages.auth.forgot_your_password_no_problem') }}
     </div>

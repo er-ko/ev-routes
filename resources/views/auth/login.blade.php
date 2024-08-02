@@ -2,6 +2,10 @@
     <!-- Session Status -->
     <x-auth-session-status class="mb-4" :status="session('status')" />
 
+    <x-slot name="meta_title">{{ __('meta.auth.title.login') }}</x-slot>
+    <x-slot name="meta_desc">{{ __('meta.auth.desc.login') }}</x-slot>
+    <x-slot name="meta_keywords">{{ __('meta.auth.keywords.login') }}</x-slot>
+
     <form method="POST" action="{{ route('login') }}">
         @csrf
 

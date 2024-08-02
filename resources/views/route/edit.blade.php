@@ -1,5 +1,9 @@
 <x-app-layout>
 
+    <x-slot name="meta_title">{{ __('meta.route.title.edit') }}</x-slot>
+    <x-slot name="meta_desc">{{ __('meta.route.desc.edit') }}</x-slot>
+    <x-slot name="meta_keywords">{{ __('meta.route.keywords.edit') }}</x-slot>
+
     <x-slot name="header">
         <div class="flex items-center justify-between">
             <h2 class="me-8 font-semibold text-xl w-full text-gray-800 dark:text-gray-200 leading-tight flex items-center justify-start">

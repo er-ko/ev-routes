@@ -1,20 +1,7 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="csrf-token" content="{{ csrf_token() }}">
-
-        <title>{{ config('app.name', 'ev-routes.com') }}</title>
-
-        <!-- Fonts -->
-        <link rel="preconnect" href="https://fonts.bunny.net">
-        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
-
+        @include('layouts.head')
         <style>
             .bg-img { background-image: url("/img/world_map_light.png"); background-size: 100% 100% }
             .dark .dark\:bg-img-dark { background-image: url("/img/world_map_dark.png"); background-size: 100% 100% }
@@ -22,7 +9,7 @@
     </head>
     <body class="font-sans text-gray-900 antialiased">
         <div class="min-h-screen flex flex-col items-center sm:justify-center pt-6 sm:pt-0 bg-gray-100 dark:bg-gray-900">
-            <div class="fixed bottom-6 right-6 z-50">
+            <div class="absolute bottom-6 sm:bottom-auto sm:top-6 right-6 z-50">
                 <button id="theme-toggle" type="button" class="p-2.5 text-sm rounded-full duration-300 bg-white hover:bg-gray-200 dark:bg-black dark:hover:bg-slate-800">
                     <svg id="theme-toggle-dark-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="size-5 hidden text-blue-300">
                         <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 0 1 .162.819A8.97 8.97 0 0 0 9 6a9 9 0 0 0 9 9 8.97 8.97 0 0 0 3.463-.69.75.75 0 0 1 .981.98 10.503 10.503 0 0 1-9.694 6.46c-5.799 0-10.5-4.7-10.5-10.5 0-4.368 2.667-8.112 6.46-9.694a.75.75 0 0 1 .818.162Z" clip-rule="evenodd" />

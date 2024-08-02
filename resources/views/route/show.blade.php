@@ -1,5 +1,10 @@
 @auth
 <x-app-layout>
+
+	<x-slot name="meta_title">{!! __($route->name) !!}</x-slot>
+    <x-slot name="meta_desc">{!! __($route->name) !!}</x-slot>
+    <x-slot name="tags">{!! __($route->name) !!}</x-slot>
+
     <x-slot name="header">
 		<div class="flex justify-between items-center">
 			<div class="flex items-center justify-center">
@@ -241,6 +246,11 @@
 @endauth
 @guest
 <x-public-layout>
+
+	<x-slot name="meta_title">{!! __($route->name) !!}</x-slot>
+    <x-slot name="meta_desc">{!! __($route->name) !!}</x-slot>
+    <x-slot name="tags">{!! __($route->name) !!}</x-slot>
+
 	<x-slot name="header">
 		<div class="flex justify-between items-center">
 			<h2 class="my-2 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">

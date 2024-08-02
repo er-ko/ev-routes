@@ -1,4 +1,9 @@
 <x-app-layout>
+
+    <x-slot name="meta_title">{{ __('meta.auth.title.profile') }}</x-slot>
+    <x-slot name="meta_desc">{{ __('meta.auth.desc.profile') }}</x-slot>
+    <x-slot name="meta_keywords">{{ __('meta.auth.keywords.profile') }}</x-slot>
+
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
             {{ __('Profile') }}

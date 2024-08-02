@@ -1,4 +1,9 @@
 <x-guest-layout>
+
+    <x-slot name="meta_title">{{ __('meta.auth.title.register') }}</x-slot>
+    <x-slot name="meta_desc">{{ __('meta.auth.desc.register') }}</x-slot>
+    <x-slot name="meta_keywords">{{ __('meta.auth.keywords.register') }}</x-slot>
+
     <form method="POST" action="{{ route('register') }}">
         @csrf
 
