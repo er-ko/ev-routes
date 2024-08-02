@@ -5,9 +5,6 @@
 
         <!-- Styles -->
         @stack('slotstyle')
-
-        <!-- Scripts -->
-        @vite(['resources/css/app.css', 'resources/js/app.js'])
         <style>
             .checkbox-wrapper-toggle input[type="checkbox"] { visibility: hidden; display: none }
             .checkbox-wrapper-toggle .toggle { display: flex; cursor: pointer; -webkit-tap-highlight-color: transparent; transform: translate3d(0, 0, 0) }
