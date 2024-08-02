@@ -24,7 +24,7 @@ class WelcomeController extends Controller
         if (!session()->exists('consumption')) Session::put('consumption', Settings::defaultData()['consumption']);
         if (!session()->exists('weight')) Session::put('weight', Settings::defaultData()['weight']);
 
-        return view('welcome', [
+        return view('welcome.index', [
             'routes' => Route::where('public', true)->orderBy('created_at', 'desc')->paginate(15),
             'settings' => json_decode(json_encode(Settings::defaultData()), FALSE),
         ]);
@@ -45,7 +45,7 @@ class WelcomeController extends Controller
         })
         ->paginate(15);
 
-        return view('welcome', [
+        return view('welcome.index', [
             'settings' => json_decode(json_encode(Settings::defaultData()), FALSE),
         ], compact('routes', 'search'));
     }
