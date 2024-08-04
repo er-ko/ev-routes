@@ -16,7 +16,6 @@
                 @else
                     <div class="absolute top-6 right-6 flex items-center justify-center">
                 @endif
-                {{ request()->routeIs('/') }}
                     @if (!request()->routeIs(['route.show']))
                         @if (request()->path() == 'search')
                             <a href="/" type="button" class="py-2.5 px-3 text-sm rounded-l-full duration-300 text-white bg-pink-600 hover:bg-pink-700">
