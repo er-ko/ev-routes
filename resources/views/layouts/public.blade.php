@@ -7,29 +7,47 @@
         @isset($search)
             {{ $search }}
         @endisset
-        <div id="wrapper" class="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
+        <div class="z-0 wallpaper-top block absolute top-0 left-0 w-full h-full max-h-[600px] xl:shadow-xl"></div>
+        <div id="wrapper" class="z-10 min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-900">
             <div class="w-full min-h-screen max-w-2xl px-6 lg:max-w-7xl flex flex-col">
                 @if(request()->routeIs('welcome') || request()->path() == 'search')
-                    <div class="flex items-center justify-center my-12">
+                    <div class="flex items-center justify-center my-16 z-10">
                 @elseif (request()->routeIs(['route.show']))
-                    <div class="fixed bottom-6 right-6 flex items-center justify-center z-50">
+                    <div class="fixed bottom-6 md:bottom-auto top-auto md:top-9 right-6 md:right-4 lg:bottom-6 lg:top-auto lg:right-6 xl:bottom-auto xl:top-6 flex items-center justify-center z-50">
                 @else
                     <div class="absolute top-6 right-6 flex items-center justify-center">
                 @endif
                     @if (!request()->routeIs(['route.show']))
-                        @if (request()->path() == 'search')
-                            <a href="/" type="button" class="py-2.5 px-3 text-sm rounded-l-full duration-300 text-white bg-pink-600 hover:bg-pink-700">
+                        @if (request()->path() === 'search')
+                            <a href="{{ url('/') }}" type="button" class="search-close py-2.5 px-3 text-sm rounded-l-full duration-300 text-white bg-pink-600 hover:bg-pink-700">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                 </svg>
                             </a>
                         @else
-                            <button id="search-toggle" type="button" class="py-2.5 px-3 text-sm rounded-l-full duration-300 text-gray-500 bg-white hover:bg-gray-200 hover:text-black dark:bg-black dark:hover:text-white dark:hover:bg-gray-800">
+                            <button type="button" class="search-close py-2.5 px-3 text-sm rounded-l-full duration-300 text-white bg-pink-600 hover:bg-pink-700 hidden">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-                                    <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
                                 </svg>
                             </button>
                         @endif
+                        <button id="search-toggle" type="button" class="py-2.5 px-3 text-sm rounded-l-full duration-300 text-gray-500 bg-white hover:bg-gray-200 hover:text-black dark:bg-black dark:hover:text-white dark:hover:bg-gray-800 {{ request()->path() === 'search' ? 'hidden' : '' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+                            </svg>
+                        </button>
+                        <div id="search-area" class="relative w-[250px] {{ request()->path() !== 'search' ? 'hidden' : '' }}">
+                            <form method="get" action="/search">
+                                <div class="flex items-center justify-between">
+                                    <x-search-input id="finder" type="text" class="block w-full rounded-none" name="search" value="{{ request()->query('search') }}" placeholder="{{ __('messages.try_to_find_some_route') }}.." required />
+                                    <button id="search" type="submit" class="absolute right-4 py-1 px-2 rounded duration-300 text-teal-600 bg-teal-600/10 hover:text-white hover:bg-teal-600 dark:text-teal-600 dark:hover:text-white dark:bg-transparent dark:hover:bg-teal-600 dark:border dark:border-teal-600">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-3">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" />
+                                        </svg>
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
                         @guest
                             <button
                                 type="button"
@@ -69,19 +87,22 @@
                     </button>
                 </div>
                 @isset($header)
-                    <header class="mt-6 mb-auto bg-white dark:bg-gray-800 shadow rounded-xl">
+                    <header class="z-10 mt-6 mb-auto shadow rounded-xl bg-white/25 dark:bg-gray-900/40">
                         <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
                             {{ $header }}
                         </div>
                     </header>
                 @endisset
 
-                <main class="mb-auto">
+                <main class="mb-auto z-10">
                     {{ $slot }}
                 </main>
 
                 <footer class="flex items-center justify-between mt-12 py-6 text-center text-sm border-t border-dashed text-black border-gray-200 dark:border-slate-700">
-                    <small class="text-gray-600 dark:text-slate-500">&copy; {{ date('Y') }}<span class="ms-2 ps-2 border-l text-gray-400 border-gray-300 dark:text-slate-500 dark:border-slate-700">ev-routes.com</span></small>
+                    <small class="text-gray-600 dark:text-slate-500">
+                        &copy; {{ date('Y') }}
+                        <span class="ms-2 ps-2 border-l text-gray-400 border-gray-300 dark:text-slate-500 dark:border-slate-700">ev-routes.com</span>
+                    </small>
                     <ul class="flex text-xs text-gray-400 dark:text-slate-500">
                         <li class="px-1"><a href="/locale/en" class="{{ app()->getLocale() == 'en' ? 'text-gray-800 dark:text-slate-400' : '' }}">en</a></li>
                         <li class="px-1"><a href="/locale/es" class="{{ app()->getLocale() == 'es' ? 'text-gray-800 dark:text-slate-400' : '' }}">es</a></li>

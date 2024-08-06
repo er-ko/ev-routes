@@ -1,3 +1,10 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.wallpaper-top {
+	background-image: url('/public/img/home_wallpaper_winter.jpg') !important;
+	background-position: top;
+	background-size: 100% auto;
+	background-repeat: no-repeat;
+}

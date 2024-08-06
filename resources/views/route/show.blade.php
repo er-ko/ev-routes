@@ -154,16 +154,32 @@
 						<p class="font-bold"><span class="text-sm font-semibold mr-2 text-slate-500">{{ __('messages.route.total_time') }}:</span>{{ intdiv($route->charging_time, 60) .'h '. ($route->charging_time % 60) .'m' }}</p>
 					</div>
 				</div>
-				<div class="col-span-2 flex flex-col sm:flex-row justify-start items-center mt-6 lg:mt-0 p-8 sm:rounded-lg transition duration-400 shadow-lg hover:shadow-xl bg-gray-900 text-gray-200 dark:text-gray-300 dark:bg-gray-950">
+				<div class="col-span-2 flex flex-col sm:flex-row justify-start items-center mt-6 lg:mt-0 p-8 rounded-lg transition duration-400 shadow-lg hover:shadow-xl bg-gray-900 text-gray-200 dark:text-gray-300 dark:bg-gray-950">
 					<img src="/img/piggybank.png" class="w-32 ml-8 mr-12 mb-8" />
 					<div>
 						<h4 class="mb-5 text-2xl font-semibold text-yellow-400">{{ __('messages.finance') }}<h4>
 						<p class="font-bold"><span class="text-sm font-semibold mr-2 text-gray-500">{{ __('messages.route.price_per_kw') }}:</span>{{ $route->price_per_kw .' '. $route->currency }}</p>
 						<p class="font-bold"><span class="text-sm font-semibold mr-2 text-gray-500">{{ __('messages.route.real_price') }}:</span>{{ $route->real_price .' '. $route->currency }}</p>
 						<p class="font-bold"><span class="text-sm font-semibold mr-2 text-gray-500">{{ __('messages.route.estimated_price') }}:</span>{{ $route->estimated_price .' '. $route->currency }}</p>
-						<p class="mt-4 pt-3 text-sm text-gray-400/80 dark:text-gray-500 border-t border-dashed border-gray-800">
-							<span>Ekvivalent celkové spotřeby auta se spalovacím pohonem:</span>
-							<span class="font-bold ml-1">{{ number_format((($route->avg_consumption/10) / 8.898) * ($route->range/100), 1, '.', '') }}l ({{ number_format(($route->avg_consumption/10) / 8.898, 2, '.', '') }}l / 100 km)</span>
+						<p class="mt-4 pt-3 text-sm text-gray-400/80 dark:text-gray-500 border-t border-dashed border-gray-800 text-right">
+							<span>{{ __('messages.route.the_equivalent_of_the_total_consumption_of_a_car_with_an_combustion_engine') }}:</span><br>
+							<span class="font-bold text-gray-300">
+								@if ($settings->consumption == $route->unit_consumption)
+									@if ($settings->consumption == 'kWh')
+										{{ number_format(($route->avg_consumption / 8.898) * ($route->distance / 100), 2, '.', '') }}l
+										( {{ number_format($route->avg_consumption / 8.898, 2, '.', '') }}l / 100km )
+									@else
+										{{ number_format( 33705 / $route->avg_consumption, 2, '.', '') }} MPGe
+									@endif
+								@else
+									@if ($settings->consumption == 'kWh')
+										{{ number_format(($route->avg_consumption / 1.609344 / 10 / 8.898) * ($route->distance / 100), 2, '.', '') }}l
+										( {{ number_format(($route->avg_consumption / 1.609344 / 10) / 8.898, 2, '.', '') }}l / 100km )
+									@else
+										{{ number_format( 33705 / ($route->avg_consumption * 1.609344 * 10), 2, '.', '') }} MPGe
+									@endif
+								@endif
+							</span>
 						</p>
 					</div>
 				</div>
@@ -253,12 +269,12 @@
 
 	<x-slot name="header">
 		<div class="flex justify-between items-center">
-			<h2 class="my-2 font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
+			<h2 class="my-2 font-semibold text-xl leading-tight text-white dark:text-white">
 				{{ $route->name }}
 			</h2>
 			<a
 				href="{{ url('/') }}"
-				class="p-2 rounded-lg transition duration-400 text-gray-500 bg-gray-100 hover:text-gray-700 hover:bg-gray-200 dark:text-gray-700 dark:bg-gray-900/50 dark:hover:text-gray-600 dark:hover:bg-gray-900"
+				class="p-2 rounded-lg transition duration-300 border text-white/50 bg-transparent border-white/50 hover:text-gray-500 hover:bg-white/75 dark:text-gray-800 dark:border-gray-800 dark:hover:text-white dark:hover:bg-gray-800"
 			>
 				<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
 					<path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
@@ -269,12 +285,12 @@
 
     <div class="pt-8 lg:pb-8 xl:pb-16">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-			<div class="grid gap-4 grid-cols-1 lg:grid-cols-2 mb-20 text-gray-600 dark:text-slate-500">
-				<div>
-					<h3 class="sm:text-lg"><strong class="text-gray-500 dark:text-slate-600">{{ __('messages.start') }}:</strong> {{ $route->from }}</h3>
+			<div class="grid gap-4 grid-cols-1 lg:grid-cols-2 mb-20 md:mb-6 lg:mb-20 text-white dark:text-white">
+			<div>
+					<h3 class="sm:text-lg"><strong class="text-gray-200 dark:text-gray-200">{{ __('messages.start') }}:</strong> {{ $route->from }}</h3>
 				</div>
 				<div class="lg:text-right">
-					<h3 class="sm:text-lg"><strong class="text-gray-500 dark:text-slate-600">{{ __('messages.end') }}:</strong> {{ $route->to }}</h3>
+					<h3 class="sm:text-lg"><strong class="text-gray-200 dark:text-gray-200">{{ __('messages.end') }}:</strong> {{ $route->to }}</h3>
 				</div>
 			</div>
 			<div class="flex justify-center items-center">

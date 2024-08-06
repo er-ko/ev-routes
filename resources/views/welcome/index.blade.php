@@ -1,30 +1,5 @@
 <x-public-layout>
-
-    <x-slot name="search">
-        <div id="search-area" class="absolute top-0 left-0 w-full min-h-screen hidden z-50 flex items-center justify-center bg-white/10 dark:bg-black/10">
-            <div class="absolute top-6 right-6 flex items-center justify-center">
-                <button id="search-close" type="button" class="p-2.5 text-sm rounded-full duration-300 text-white bg-pink-600 hover:bg-pink-700 dark:text-white dark:bg-pink-800 dark:hover:bg-pink-700">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-5">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-                    </svg>
-                </button>
-            </div>
-            <div class="w-full max-w-2xl px-6 lg:max-w-7xl relative">
-                <form method="get" action="/search">
-                    <div class="flex items-center justify-between">
-                        <x-search-input id="finder" type="text" class="block w-full p-16 text-xl" name="search" placeholder="{{ __('messages.try_to_find_some_route') }}.." required />
-                        <button id="search" type="submit" class="absolute right-16 py-2 px-4 rounded-lg duration-300 text-teal-600 bg-teal-600/10 hover:text-white hover:bg-teal-600 dark:text-teal-600 dark:hover:text-white dark:bg-transparent dark:hover:bg-teal-600 dark:border dark:border-teal-600">
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-8">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="m16.49 12 3.75 3.75m0 0-3.75 3.75m3.75-3.75H3.74V4.499" />
-                            </svg>
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </x-slot>
-
-    <div class="overflow-auto rounded-lg">
+    <div class="overflow-auto rounded-lg p-4 shadow-xl bg-white/25 border border-white/50 dark:bg-black/25 dark:border-black/25">
         <table class="table-auto w-full text-sm">
             <thead>
                 <tr class="text-gray-600 bg-white border-b border-gray-200 dark:text-gray-500 dark:bg-gray-950 dark:border-gray-700">
@@ -98,9 +73,9 @@
             @else
                 @foreach ($routes as $route)
                     @if ($count % 2 == 0)
-                        <tr class="transition duration-300 bg-gray-100 hover:bg-white dark:text-gray-400 dark:hover:bg-gray-700/25 dark:bg-gray-900">
+                        <tr class="transition duration-300 bg-gray-100 hover:bg-white/25 dark:text-gray-400 dark:hover:bg-gray-700/25 dark:bg-gray-900">
                     @else
-                        <tr class="transition duration-300 bg-gray-50 hover:bg-white dark:text-gray-400 dark:hover:bg-gray-700/25 dark:bg-gray-800/50">
+                        <tr class="transition duration-300 bg-gray-50 hover:bg-white/25 dark:text-gray-400 dark:hover:bg-gray-700/25 dark:bg-gray-800">
                     @endif
                         <td class="p-2 pl-4 w-24 text-center whitespace-nowrap">{{ date(session('date_format'), strtotime($route->drive_date)) }}</td>
                         <td class="p-2 w-24 whitespace-nowrap">{{ $route->user->name }}</td>
@@ -174,7 +149,7 @@
             </tbody>
         </table>
     </div>
-    <div class="mt-4">
+    <div class="mt-8">
         @if (!$routes->isEmpty())
             {{ $routes->withQueryString()->links() }}
         @endif
@@ -186,13 +161,16 @@
         <script type="text/javascript">
             $(document).ready(function(){
                 $('#search-toggle').click(function(){
-                    $('#wrapper').addClass('blur-lg');
-                    $('#search-area').removeClass('hidden');
+                    $('#search-area').animate({width:'toggle'}, 350);
                     $('#finder').focus();
+                    $('#search-area').removeClass('hidden');
+                    $('#search-toggle').addClass('hidden');
+                    $('.search-close').removeClass('hidden');
                 });
-                $('#search-close').click(function(){
-                    $('#wrapper').removeClass('blur-lg');
-                    $('#search-area').addClass('hidden');
+                $('.search-close').click(function(){
+                    $('#search-area').animate({width:'toggle'}, 350);
+                    $('#search-toggle').removeClass('hidden');
+                    $('.search-close').addClass('hidden');
                 });
             });
         </script>
